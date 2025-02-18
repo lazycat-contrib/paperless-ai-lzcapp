@@ -1,0 +1,17 @@
+# ignored options for 'paperless-ai'
+# --
+name: <your project name>
+services:
+    paperless-ai:
+        container_name: paperless-ai
+        network_mode: bridge
+        volumes:
+            - paperless-ai_data:/app/data
+        ports:
+            - 3000:3000
+        restart: unless-stopped
+        image: clusterzx/paperless-ai
+volumes:
+    paperless-ai_data:
+        external: true
+        name: paperless-ai_data

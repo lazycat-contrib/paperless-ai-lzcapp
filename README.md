@@ -1,0 +1,1 @@
+# paperless-ai-lzcapp
