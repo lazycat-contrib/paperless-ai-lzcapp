@@ -1,28 +1,21 @@
-lzc-sdk-version: "0.1"
-name: Paperless AI
-package: cloud.lazycat.app.paperless-ai
-version: 2.6.5
-description: 通过自然对话与您的Paperless-ngx文档交互的工具
-homepage: https://clusterzx.github.io/paperless-ai
-author: clusterzx
 application:
   subdomain: paperless-ai
   background_task: true
   multi_instance: false
-  gpu_accel: false
-  kvm_accel: false
-  usb_accel: false
-  routes:
-    - /=http://paperless-ai.cloud.lazycat.app.paperless-ai.lzcapp:3000/
+  upstreams:
+    - location: /
+      backend: http://paperless-ai.cloud.lazycat.app.paperless-ai.lzcapp:3000/
+
 services:
   paperless-ai:
-    image: registry.lazycat.cloud/czyt/clusterzx/paperless-ai:d818e3d773e270dd
+    # upstream: clusterzx/paperless-ai:2.6.5
+    image: clusterzx/paperless-ai:2.6.5
     binds:
       - /lzcapp/var/data:/app/data
     environment:
       - PAPERLESS_AI_INITIAL_SETUP=yes
       - PAPERLESS_API_URL=http://localhost:8000/api
-      - PAPERLESS_API_TOKEN=xxxxxxxxxxxxxxxxxxxx
+      - PAPERLESS_API_TOKEN={{ stable_secret "paperless_api_token" }}
       - PAPERLESS_USERNAME=lazycat
       - AI_PROVIDER=custom
       - OPENAI_API_KEY=
@@ -37,7 +30,7 @@ services:
       - USE_PROMPT_TAGS=no
       - PROMPT_TAGS=
       - USE_EXISTING_DATA=no
-      - API_KEY=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
-      - CUSTOM_API_KEY=xxxxxxxxxxxxxxxxxxxxxxx
+      - API_KEY={{ stable_secret "api_key" }}
+      - CUSTOM_API_KEY={{ stable_secret "custom_api_key" }}
       - CUSTOM_BASE_URL=https://api.deepseek.com/v1
       - CUSTOM_MODEL=deepseek-chat

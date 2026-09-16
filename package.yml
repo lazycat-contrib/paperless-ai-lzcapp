@@ -1,0 +1,14 @@
+package: cloud.lazycat.app.paperless-ai
+version: 2.6.5
+name: Paperless AI
+description: "通过自然对话与您的Paperless-ngx文档交互的工具"
+min_os_version: "1.5.0"
+homepage: https://clusterzx.github.io/paperless-ai
+author: clusterzx
+locales:
+  zh:
+    description: "通过自然对话与您的Paperless-ngx文档交互的工具"
+    name: Paperless AI
+  en:
+    description: "A tool to interact with your Paperless-ngx documents through natural conversation"
+    name: Paperless AI

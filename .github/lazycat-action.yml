@@ -1,0 +1,38 @@
+version: 1
+
+project:
+  root: .
+  build_config: lzc-build.yml
+  package_file: package.yml
+  output: .lazycat-build/paperless-ai.lpk
+  target_arch: amd64
+
+update:
+  strategy: publish
+  allow_downgrade: false
+  version_source:
+    type: image
+    image: paperless-ai
+build:
+  run_buildscript: false
+images:
+  # 主应用：上游有完整三段 SemVer tag（1.1.5 ~ 3.0.9），stable 通道自动跟踪；排除 latest/dev/nightly/main-* 别名
+  - id: paperless-ai
+    target: service
+    service: paperless-ai
+    source: clusterzx/paperless-ai
+    channel: stable
+    sort: semver
+    tag_regex: '^v?\d+\.\d+\.\d+$'
+    delivery:
+      mode: lazycat
+stores:
+  official:
+    enabled: true
+    skip_if_version_exists: true
+    changelog_locales: [zh, en]
+  private:
+    enabled: true
+    skip_if_version_exists: true
+    name: Paperless AI
+    summary: "通过自然对话与您的Paperless-ngx文档交互的工具"
