@@ -5,11 +5,10 @@ application:
   upstreams:
     - location: /
       backend: http://paperless-ai.cloud.lazycat.app.paperless-ai.lzcapp:3000/
-
 services:
   paperless-ai:
-    # upstream: clusterzx/paperless-ai:2.6.5
-    image: clusterzx/paperless-ai:2.6.5
+    # upstream: clusterzx/paperless-ai:3.0.9
+    image: registry.lazycat.cloud/czyt/clusterzx/paperless-ai:364d68084b50592b
     binds:
       - /lzcapp/var/data:/app/data
     environment:
